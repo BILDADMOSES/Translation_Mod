@@ -13,5 +13,6 @@ ax1 = fig.add_subplot(1,1,1)
 myexplode = [.2,0]
 ax1.pie([unique_Eng, unique_Fre], explode=myexplode, shadow = True, labels=['English', 'French'])
 
-plt.legend()
+plt.legend(labels = ["English ({})".format(unique_Eng),"French ({})".format(unique_Fre)], loc = "lower right")
+
 plt.show()
