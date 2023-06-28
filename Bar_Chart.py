@@ -13,11 +13,14 @@ fig = plt.figure(figsize=(8,8))
 
 #fig.add_subplot(nrows,ncols,index)
 ax = fig.add_subplot(1,1,1)
-
+ax1 = fig.add_subplot(1,1,1)
 ax.bar(["English"], [unique_Eng])
 ax.bar(["French"], [unique_Fre])
 
 ax.set(
     title = "Number of Unique Values in Both Languages"
 )
+
+ax1.pie([unique_Eng, unique_Fre], labels=['English', 'French'])
+
 plt.show()
