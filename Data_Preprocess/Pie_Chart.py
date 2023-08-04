@@ -15,4 +15,9 @@ ax1.pie([unique_Eng, unique_Fre], explode=myexplode, shadow = True, labels=['Eng
 
 plt.legend(labels = ["English ({})".format(unique_Eng),"French ({})".format(unique_Fre)], loc = "lower right")
 
-plt.show()
+#plt.show()
+
+
+%%bash
+echo "Hello, this is a bash command"
+ls -la
