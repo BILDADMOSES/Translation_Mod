@@ -1,0 +1,108 @@
+
+  @import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	outline: none;
+	text-decoration: none;
+	font-family: 'Josefin Sans',sans-serif;
+
+}
+body{
+	width: 100%;
+	height:100vh;
+	overflow: hidden;
+    background: #3AAFA9;
+
+}
+.wrapper{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	width: 500px;
+	height: 350px;
+
+}
+.wrapper .checkout_wrapper{
+	width: 100%;
+	height: 120%;
+	display: flex;
+}
+.wrapper .checkout_wrapper .logo_info{
+	width: 45%;
+	background:#237D7A; /*#e85c4d*/
+	border-top-left-radius: 20px;
+	border-bottom-left-radius: 20px;
+	position: relative;
+
+}
+.wrapper .checkout_wrapper .logo_info img{
+	width: 200px;
+	margin-top: 30px;
+	margin-left: 15px;
+}
+.wrapper .checkout_wrapper .logo_info .content{
+	text-align: center;
+	margin-top: 25px;
+	color: #fff;
+	text-transform: uppercase;
+
+}
+.wrapper .checkout_wrapper .logo_info .content h3{
+	font-size: 18px;
+	line-height: 18px;
+	letter-spacing: 3px;
+}
+.wrapper .checkout_wrapper .logo_info .content p{
+	font-size: 14px;
+	margin-top: 10px;
+}
+.wrapper .checkout_wrapper .checkout_form{
+	width: 55%;
+	background: #fff;
+	border-top-right-radius: 20px;
+	border-bottom-right-radius: 20px;
+	padding: 50px 30px;
+}
+.wrapper .checkout_wrapper .checkout_form p{
+	margin-bottom: 25px;
+	font-size: 20px;
+	text-transform: uppercase;
+}
+.wrapper .checkout_wrapper .checkout_form .section{
+	margin-bottom: 40px;
+}
+.wrapper .checkout_wrapper .checkout_form .section .input2{
+	width: 100%;
+	padding: 10px;
+	border-radius: 25px;
+	border: 2px solid #dddddd;
+}
+.wrapper .checkout_wrapper .checkout_form .section .input2:focus{
+	border-color: #237D7A;
+}
+.wrapper .checkout_wrapper .checkout_form .btn{
+	background: #237D7A;
+  	border-radius: 15px;
+  	padding: 0 40px;
+  	min-width: 204px;
+  	height: 40px;
+  	border: none;
+  	color: white;
+    font-size: revert;
+    /* font-style: oblique; */
+    font-weight: bold;
+    cursor: pointer;
+    transition: .3s
+}
+.wrapper .checkout_wrapper .checkout_form .btn:hover{
+	background-color: #3AAFA9;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button{
+	-webkit-appearance:none;
+	margin:0;
+}

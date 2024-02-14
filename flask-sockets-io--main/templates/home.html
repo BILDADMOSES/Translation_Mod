@@ -1,0 +1,36 @@
+{% extends 'base.html' %} {% block content %}
+<form method="post"     >
+    <div class="wrapper">
+        <div class="checkout_wrapper">
+            <div class="logo_info">
+                <img src="/static/images/logo.png" alt="">
+                <div class="content">
+                    <p>WELCOME TO KENYA</p><br><br>
+                    <p>ONE WORLD <br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspONE COUNTRY</p>
+                </div>
+            </div>
+            <div class="checkout_form">
+                <p>SIGN IN <br>Chat Room</p>
+                <div class="details">
+                    <div class="section">
+                        <input class="input2" type="text"  value="{{name}}" name="name" placeholder="Enter your username" >
+                    </div>
+                    <div class="section">
+                        <input class="input2" type="text"  value="{{code}}" name="code" placeholder="Enter your room code">
+                    </div>
+                    <button class="btn" type="submit" name="join">Join a Room</button>
+                    <br><br>
+                    <button class="btn" type="submit" name="create">Create a Room</button>
+                    
+                </div>
+            </div>
+        
+        </div>
+    </div>
+    {% if error %}
+    <ul>
+      <li>{{error}}</li>
+    </ul>
+    {% endif %}
+  </form>
+  {% endblock %}

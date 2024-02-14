@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+
+body {
+	font-family: 'Josefin Sans',sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #3AAFA9;
+  }
+  
+  .content {
+	max-width: 1000px;
+	margin: 0 auto;
+	padding: 20px;
+  }
+  
+  .message-box {
+	background-color: #fff;
+	border-radius: 10px;
+	padding: 20px;
+	box-shadow: 0 20px 20px rgba(0, 0, 0, 0.1);
+	margin-top: 100px;
+  }
+  
+  h2 {
+	font-size: 28px;
+	margin-top: 0;
+	color: #000;
+	font-family: 'Josefin Sans',sans-serif;
+	text-align: center;
+	margin-bottom: 20px;
+  }
+  a{
+	font-family: 'Josefin Sans',sans-serif;
+  }
+  .messages {
+	margin-bottom: 20px;
+	overflow-y: auto;
+	font-family: 'Josefin Sans',sans-serif;
+	max-height: 800px;
+  }
+  
+  .messages .text {
+	background-color: #82ccdd;
+	margin-bottom: 10px;
+	padding: 10px;
+	width: 90%;
+	border-radius: 5px;
+	font-family: 'Josefin Sans',sans-serif;
+
+  }
+  
+  .muted {
+	color: #000;
+	font-family: 'Josefin Sans',sans-serif;
+	font-size: 15px;
+	
+  }
+  
+  .inputs {
+	display: flex;
+	font-family: 'Josefin Sans',sans-serif;
+	align-items: center;
+  }
+  
+  input[type="text"] {
+	flex: 1;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	margin-right: 10px;
+	font-size: 16px;
+	font-family: 'Josefin Sans',sans-serif;
+	color: #333;
+  }
+  
+  button[name="send"] {
+	padding: 12px 24px;
+	background-color: #3AAFA9;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	font-family: 'Josefin Sans',sans-serif;
+	cursor: pointer;
+	font-size: 16px;
+	transition: background-color 0.3s ease;
+  }
+  
+  button[name="send"]:hover {
+	background-color: #0056b3;
+  }
+  
+  @media (max-width: 480px) {
+	.content {
+	  padding: 10px;
+	}
+  
+	h2 {
+	  font-size: 24px;
+	}
+  
+	input[type="text"] {
+	  font-size: 14px;
+	}
+  
+	button[name="send"] {
+	  padding: 10px 20px;
+	}
+  }
+  
