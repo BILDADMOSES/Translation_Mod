@@ -85,6 +85,18 @@ body {
 	transition: background-color 0.3s ease;
   }
   
+  .abilo{
+	padding: 12px 24px;
+	background-color: #ccc;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	font-family: 'Josefin Sans',sans-serif;
+	cursor: pointer;
+	font-size: 16px;
+	transition: background-color 0.3s ease;
+  }
+
   button[name="send"]:hover {
 	background-color: #0056b3;
   }

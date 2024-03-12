@@ -220,6 +220,50 @@ legend {
 textarea {
 	overflow: auto;
 }
+/* Style for the fixed drop-down */
+.fixed-dropdown {
+	position: fixed;
+	top: 20px; /* Adjust the top position as needed */
+	right: 20px; /* Adjust the right position as needed */
+	z-index: 1;
+  }
+  
+  .dropdown-btn {
+	background-color: #237D7A;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	font-family: 'Josefin Sans', sans-serif;
+	cursor: pointer;
+	font-size: 16px;
+	transition: background-color 0.3s ease;
+	padding: 10px 15px;
+  }
+  
+  .dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+  }
+  
+  .dropdown-content a {
+	color: #333;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+  }
+  
+  .dropdown-content a:hover {
+	background-color: #f1f1f1;
+  }
+  
+  .fixed-dropdown:hover .dropdown-content {
+	display: block;
+  }
+  
 
 optgroup {
 	font-weight: bold;

@@ -1,114 +1,91 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
    <meta charset="utf-8">
-
-   <!-- mobile specific metas
-   ================================================== -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<!-- Title
-	================================================= -->
-	<title>Home | SPEAKEASY</title>
-
- 	<!-- CSS
-   ================================================== -->
-   <link rel="stylesheet" href="../static/assets/base.css">  
+   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+   <title>Home | SPEAKEASY</title>
+   <link rel="stylesheet" href="../static/assets/base.css">
    <link rel="stylesheet" href="../static/assets/main.css">
    <link rel="stylesheet" href="../static/assets/vendor.css">
-   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">     
-
-   <!-- script
-   ================================================== -->   
-	<script src="../static/assets/modernizr.js"></script>
-	<script src="../static/assets/pace.min.js"></script>
+   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+   <script src="../static/assets/modernizr.js"></script>
+   <script src="../static/assets/pace.min.js"></script>
+   <script src="../static/assets/language.js"defer></script>
 </head>
 
 <body id="top">
 
-	<!-- header 
-   ================================================== -->
-   <header>   	
-   	<div class="">
+   <header>
+      <div class="">
+         <div class="bar">
+            <a class="menu-toggle" href="#"><span>Menu</span></a>
+            <nav id="main-nav-wrap">
+               <ul class="main-navigation">
+                  <li class="current"><a class="smoothscroll" href="#intro" title="">Home</a></li>
+               </ul>
+            </nav>
+         </div>
+      </div>
+   </header>
 
-   		<div class="bar">
-   			<a class="menu-toggle" href="#"><span>Menu</span></a>	      
+   <!-- Fixed drop-down on the right side -->
+   <div class="fixed-dropdown">
+      <button class="dropdown-btn" id="languageBtn">Select Language</button>
+      <div class="dropdown-content">
+         <a href="#" onclick="changeLanguage('english')">English</a>
+         <a href="#" onclick="changeLanguage('french')">French</a>
+         <a href="#" onclick="changeLanguage('swahili')">Swahili</a>
+      </div>
+   </div>
 
-		   	<nav id="main-nav-wrap">
-					<ul class="main-navigation">
-						<li class="current"><a class="smoothscroll"  href="#intro" title="">Home</a></li>
-				
-					</ul>
-				</nav>    		
-   		</div> <!-- /top-bar --> 
-   		
-   	</div> <!-- /row --> 		
-   </header> <!-- /header -->
-
-	<!-- intro section
-   ================================================== -->
-   <section id="intro">   
-
-   	<div class="intro-overlay"></div>	
-
-   	<div class="intro-content">
-   		<div class="row">
-
-   			<div class="col-twelve">
-				   <h2 style="color:#fff;" >WELCOME TO SPEAKEASY</h2>
-
-                   <h3 style="color:#fff; font-size: 30px;">Project: English-French Translator</h3>
-                   
-                    <p class="intro-position">
-                        <span>Bildad Otieno</span>
-                        
-                    </p>
-
-                   <button class="button" href="/home" style="color:#000">Connect With Friends</button>
-				   
-
-
-	   		</div>  
-   			
-   		</div>   		 		
-   	</div> <!-- /intro-content --> 
-
-        <ul class="intro-social">
-            <h4 style="color:#fff;">Source Code</h4>
-
-            <li><a href="https://github.com/its-kios09/Eng-Swa-Translator" target="_blank"><i class="uil uil-github-alt" style="font-size: 50px;"></i></a></li>
-          
-        </ul> <!-- /intro-social -->      	
-
-   </section> <!-- /intro -->
+   <!-- intro section ================================================== -->
+   <section id="intro">
+      <div class="intro-overlay"></div>
+      <div class="intro-content">
+         <div class="row">
+            <div class="col-twelve">
+               <h2 id="welcomeText1" style="color:#fff;">WELCOME TO SPEAKEASY</h2>
+               <h3 style="color:#fff; font-size: 30px;" id="projectText">Project: English-French Translator</h3>
+               <p class="intro-position">
+                  <span>Bildad Otieno</span>
+               </p>
+               <a href="/home">
+                  <button id = "connectButton" style="
+                     background-color: #237D7A;
+                     color: #fff;
+                     border: none;
+                     border-radius: 5px;
+                     font-family: 'Josefin Sans',sans-serif;
+                     cursor: pointer;
+                     font-size: 16px;
+                     transition: background-color 0.3s ease;">Connect With Friends</button>
+               </a>
+            </div>
+         </div>
+      </div>
+   </section>
 
    <!-- footer ================================================== -->
-
    <footer style="margin-top: 50px;">
-     	<div class="row">
+      <div class="row">
+         <div class="col-six tab-full pull-right social">
+         </div>
+         <div class="col-six tab-full">
+            <div class="copyright">
+               <span>© Copyright 2024 </span>
+            </div>
+         </div>
+         <div id="go-top">
+            <a class="smoothscroll" title="Back to Top" href="#top"><i class="fa fa-long-arrow-up"></i></a>
+         </div>
+      </div>
+   </footer>
 
-     		<div class="col-six tab-full pull-right social">
-	      		
-	      </div>
+   <div id="preloader">
+      <div id="loader"></div>
+   </div>
 
-      	<div class="col-six tab-full">
-	      	<div class="copyright">
-		        	<span>© Copyright 2024 </span> 
-		        	<span>Design by <a href="https://www.linkedin.com/in/fredrick-kioko-506550171/">BlackCodeCreators</a></span>	         	
-		         </div>		                  
-	      	</div>
-
-	      	<div id="go-top">
-		         <a class="smoothscroll" title="Back to Top" href="#top"><i class="fa fa-long-arrow-up"></i></a>
-		    </div>
-
-      	</div> <!-- /row -->     	
-   </footer>  
-   
-   <div id="preloader"> 
-    	<div id="loader"></div>
-   </div> 
-
-   <!-- Java Script
-   ================================================== --> 
    <script src="../static/assets/jquery-2.1.3.min.js"></script>
    <script src="../static/assets/plugins.js"></script>
    <script src="../static/assets/main.js"></script>
