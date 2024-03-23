@@ -19,7 +19,9 @@ window.languageContent = {
        chatInvitation: 'Chat Invitation Code:',
        leaveChat: 'Leave Chat',
        messagePlaceholder: 'Message',
-       sendBtn: 'Send'
+       sendBtn: 'Send',
+       invite: '',
+       enter: "has entered the room"
    },
    'french': {
        welcomeText1: 'BIENVENUE À SPEAKEASY',
@@ -38,7 +40,9 @@ window.languageContent = {
        chatInvitation: 'Code d\'invitation au chat:',
        leaveChat: 'Quitter le chat',
        messagePlaceholder: 'Message',
-       sendBtn: 'Envoyer'
+       sendBtn: 'Envoyer',
+       invite: '',
+       enter: 'est entré dans la pièce'
    },
    'swahili': {
        welcomeText1: 'KARIBU SPEAKEASY',
@@ -57,7 +61,9 @@ window.languageContent = {
        chatInvitation: 'Nambari ya Mwaliko wa Mazungumzo:',
        leaveChat: 'Ondoka kwenye Mazungumzo',
        messagePlaceholder: 'Ujumbe',
-       sendBtn: 'Tuma'
+       sendBtn: 'Tuma',
+       invite: '',
+       enter: 'ameingia chumbani'
    }
 };
 

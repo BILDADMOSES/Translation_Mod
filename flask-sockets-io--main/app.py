@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, session, redirect, url_for
-from flask_socketio import join_room, leave_room, send, SocketIO
+from flask_socketio import SocketIO, join_room, leave_room, send
 import random
 from string import ascii_uppercase
 import pickle
@@ -97,10 +97,10 @@ def message(data):
     }
 
     # Send only the original message to the sender
-    send(original_content, to=request.sid)
+    send(original_content, room=request.sid)
 
     # Send only the translated message to the room except the sender
-    send(translated_content, to=room, skip_sid=request.sid)
+    send(translated_content, room=room, skip_sid=request.sid)
 
     # Update the room's message history with both original and translated messages
     rooms[room]["messages"].append(original_content)
@@ -108,9 +108,8 @@ def message(data):
 
     print(f"{session.get('name')} said: {data['data']}")
 
-
 @socketio.on("connect")
-def connect(auth):
+def connect():
     room = session.get("room")
     name = session.get("name")
     if not room or not name:
@@ -120,7 +119,7 @@ def connect(auth):
         return
 
     join_room(room)
-    send({"name": name, "message": "has entered the room"}, to=room)
+    send({"name": name, "message": "has entered the room"}, room=room)
     rooms[room]["members"] += 1
     print(f"{name} joined room {room}")
 
@@ -135,7 +134,7 @@ def disconnect():
         if rooms[room]["members"] <= 0:
             del rooms[room]
 
-    send({"name": name, "message": "has left the room"}, to=room)
+    send({"name": name, "message": "has left the room"}, room=room)
     print(f"{name} has left the room {room}")
 
 if __name__ == "__main__":
