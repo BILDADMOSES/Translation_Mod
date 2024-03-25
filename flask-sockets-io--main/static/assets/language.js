@@ -21,6 +21,7 @@ window.languageContent = {
        messagePlaceholder: 'Message',
        sendBtn: 'Send',
        invite: '',
+       message: 'Write Message',
        enter: "has entered the room"
    },
    'french': {
@@ -42,6 +43,7 @@ window.languageContent = {
        messagePlaceholder: 'Message',
        sendBtn: 'Envoyer',
        invite: '',
+       message: 'Écrire un Message',
        enter: 'est entré dans la pièce'
    },
    'swahili': {
@@ -59,10 +61,11 @@ window.languageContent = {
        createBtn: 'Unda Chumba',
        chatTitle: 'Mazungumzo Moja kwa moja',
        chatInvitation: 'Nambari ya Mwaliko wa Mazungumzo:',
-       leaveChat: 'Ondoka kwenye Mazungumzo',
+       leaveChat: 'Ondoka Chumbani',
        messagePlaceholder: 'Ujumbe',
        sendBtn: 'Tuma',
        invite: '',
+       message: 'Andika Ujumbe',
        enter: 'ameingia chumbani'
    }
 };
@@ -98,7 +101,7 @@ window.changeLanguage = function(language) {
          console.error(`Element with ID "${elementId}" not found.`);
       }
    };
-
+   
    // Update individual elements
    updateElementText('welcomeText1', 'welcomeText1');
    updateElementText('projectText', 'projectText');
