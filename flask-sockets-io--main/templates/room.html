@@ -1,112 +1,83 @@
-{% extends 'base.html' %} {% block content %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8">
     <title>Chat App</title>
-    <link
-      rel="stylesheet"
-      href="../static/css/stylev2.css"
-    />
+    <link rel="stylesheet" href="../static/css/stylev2.css">
     <link rel="shortcut icon" href="../static/hero.jpg" type="image/x-icon">
-
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" >
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
-      integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
-      crossorigin="anonymous"
-    ></script>
-    
-  </head>
-  <body>
-    <div class="content">
-      <div class="message-box">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+    <script src="../static/assets/language.js"></script>
+</head>
+<body>
+<div class="content">
+    <div class="message-box">
         <h3>
             <span style="display: flex; align-items: center;">
-              <img src="../static/images/icon.jpg" style="height: 40px; width: 40px; border: 1.5px solid #f5f6fa; border-radius: 50%; margin-right: 10px;">
-              Live Chat
-              <span style="color: green; font-size: 20px;">&#9679;</span>
+                <img src="../static/images/icon.jpg" style="height: 40px; width: 40px; border: 1.5px solid #f5f6fa; border-radius: 50%; margin-right: 10px;">
+                <p id="liveChat">Live Chat</p>
+                <span style="color: green; font-size: 20px;">&#9679;</span>
             </span>
-          </h3>
-          <p id = 'invite' style="display: inline; font-family: 'Josefin Sans', sans-serif; text-decoration: none;">Chat Invitation Code: <b>{{code}}</b></p> <a href="/" style="color: red; font-family: 'Josefin Sans', sans-serif; float: right; text-decoration: none;">Leave Chat</a>
-          <br>
+        </h3>
+        <p id="chatInvitation" style="display: inline; font-family: 'Josefin Sans', sans-serif; text-decoration: none;">Chat Invitation Code: </p><b>{{ code }}</b>
+        <a id="leaveChat" href="/" style="color: red; font-family: 'Josefin Sans', sans-serif; float: right; text-decoration: none;">Leave Chat</a>
+        <br>
         <br>
         <hr>
-
-        <section class="msger">
-          <header class="msger-header">
-            <div class="msger-header-title">
-              <p id='chatRoom' class="fas fa-love"></i> Chat Room <i class="fas fa-love"></p>
-            </div>
-          </header>
-
-          <main class="msger-chat">
-            <div class="messages" id="messages">
-              <div class="msg-text"></div>
-            </div>
-
-            <div class="inputs">
-              <input id="message" class="msger-input" type="text" rows="3"  placeholder="Write Message..." name="message">
-              <button id="sendBtn" class="msger-sendBtn" type="button" name="send"   onClick="sendMessage()">Send</button>
-            </div>
-
-          </main>
- 
-        </section>
-
-      </div>
-      <script type="text/javascript">
-        var socketio = io();
-
-        const messages = document.getElementById("messages");
-
-        const createMessage = (name, msg) => {
-          const content = `
-          <div class="text">
-            <span style="display: flex; align-items: center;">
-                <img src="../static/images/icon2.jpg" style="height: 40px; width: 40px; border: 1.5px solid #f5f6fa; border-radius: 50%; margin-right: 10px;">
-                <strong>
-                    ${name}
-                    <span style="color: green; font-size: 20px;">
-                        &#9679;
-                    </span>
-                </strong>
-                &nbsp; &nbsp; &nbsp;
-                <span class="muted">
-                  
-                 <small>
-                  <sup style="color: #606060; font-size: 10px; margin-top: 5px;">
-                    ${new Date().toLocaleString()}
-                  </sup>
-                </small>
-                </span>
-              </span>
-              <br>
-              ${msg}
-              <br>
-              <br>
-          </div>
-          `;
-          messages.innerHTML += content;
-        };
-
-        socketio.on("message", (data) => {
-          createMessage(data.name, data.message);
-        });
-
-        const sendMessage = () => {
-          const message = document.getElementById("message");
-          if (message.value == "") return;
-          socketio.emit("message", { data: message.value });
-          message.value = "";
-        };
-      </script>
-      {% for msg in messages %}
-      <script type="text/javascript">
-        createMessage("{{msg.name}}", "{{msg.message}}");
-      </script>
-      {% endfor %}
+        <div class="messages" id="messages"></div>
+        <div class="inputs">
+            <input type="text" rows="3" placeholder="Write Message..." name="message" id="writemessagePlaceholder">
+            <button type="button" name="send" id="sendBtn" onclick="sendMessage()">Send</button>
+        </div>
     </div>
-  </body>
+</div>
+<script type="text/javascript">
+    var socketio = io();
+
+    const messages = document.getElementById("messages");
+
+    console.log("Language", window.languageContent)
+    const createMessage = (name, msg) => {
+      
+      const languageCookie = document.cookie.split('; ').find(row => row.startsWith('selectedLanguage='));
+      if (msg.trim() == "has entered the room") {
+        if (languageCookie === 'selectedLanguage=english') {
+            msg = "has entered the room"
+        } else if (languageCookie === 'selectedLanguage=french') {
+          msg = "est entré dans la pièce"
+      }
+          else{
+            msg = "ameingia chumbani"
+          }
+      }
+      console.log("Selected Langauge!!!", languageCookie)
+        const content = `
+            <div class="text">
+                <span style="display: flex; align-items: center;">
+                    <img src="../static/images/icon2.jpg" style="height: 40px; width: 40px; border: 1.5px solid #f5f6fa; border-radius: 50%; margin-right: 10px;">
+                    <strong>${name}<span style="color: green; font-size: 20px;">&#9679;</span></strong>
+                    &nbsp; &nbsp; &nbsp;
+                    <span class="muted">${new Date().toLocaleString()}</span>
+                </span>
+                <br>
+                ${msg}
+                <br>
+                <br>
+            </div>
+        `;
+        messages.innerHTML += content;
+    };
+
+    socketio.on("message", (data) => {
+        createMessage(data.name, data.message);
+    });
+
+    const sendMessage = () => {
+        const message = document.getElementById("writemessagePlaceholder").value;
+        if (!message) return;
+        socketio.emit("message", { data: message });
+        document.getElementById("writemessagePlaceholder").value = ""; // Clear the input field after sending
+    };
+</script>
+</body>
 </html>
-{% endblock %}

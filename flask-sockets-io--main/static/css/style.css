@@ -73,7 +73,7 @@ body{
 	text-transform: uppercase;
 }
 .wrapper .checkout_wrapper .checkout_form .section{
-	margin-bottom: 40px;
+	margin-bottom: 20px;
 }
 .wrapper .checkout_wrapper .checkout_form .section .input2{
 	width: 100%;
@@ -96,7 +96,8 @@ body{
     /* font-style: oblique; */
     font-weight: bold;
     cursor: pointer;
-    transition: .3s
+    transition: .3s;
+	/* position: fixed; */
 }
 .wrapper .checkout_wrapper .checkout_form .btn:hover{
 	background-color: #3AAFA9;

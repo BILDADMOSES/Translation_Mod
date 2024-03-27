@@ -1,9 +1,10 @@
 from flask import Flask, render_template, request, session, redirect, url_for
-from flask_socketio import SocketIO, join_room, leave_room, send
+from flask_socketio import join_room, leave_room, send, SocketIO
 import random
 from string import ascii_uppercase
 import pickle
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+import torch
+from transformers import AutoModelForSequenceClassification, AutoTokenizer, AutoModelForSeq2SeqLM
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "hjhjsdahhds"
@@ -11,22 +12,35 @@ socketio = SocketIO(app)
 
 rooms = {}
 
-# Load the model information
-with open('Swa_to_Eng_Translator_info.pkl', 'rb') as info_file:
-    model_info = pickle.load(info_file)
+# Load the language detection model
+language_model_ckpt = "papluca/xlm-roberta-base-language-detection"
+language_tokenizer = AutoTokenizer.from_pretrained(language_model_ckpt)
+language_model = AutoModelForSequenceClassification.from_pretrained(language_model_ckpt)
 
-# Load the tokenizer and model
-translator_tokenizer = AutoTokenizer.from_pretrained(model_info["model_name"])
-translator_model = AutoModelForSeq2SeqLM.from_pretrained(model_info["model_name"])
+# Load the English-to-Swahili translation model
+eng_to_swa_model_info = pickle.load(open('Eng_to_Swa_Translator_info.pkl', 'rb'))
+eng_to_swa_tokenizer = AutoTokenizer.from_pretrained(eng_to_swa_model_info["model_name"])
+eng_to_swa_model = AutoModelForSeq2SeqLM.from_pretrained(eng_to_swa_model_info["model_name"])
 
-def translate_text(french_text: str) -> str:
-    # Tokenize the French text
-    inputs = translator_tokenizer(french_text, return_tensors="pt", padding=True, truncation=True)
-    # Generate the English translation
-    outputs = translator_model.generate(**inputs)
-    # Decode the English translation
-    english_text = translator_tokenizer.decode(outputs[0], skip_special_tokens=True)
-    return english_text
+# Load the Swahili-to-English translation model
+swa_to_eng_model_info = pickle.load(open('Swa_to_Eng_Translator_info.pkl', 'rb'))
+swa_to_eng_tokenizer = AutoTokenizer.from_pretrained(swa_to_eng_model_info["model_name"])
+swa_to_eng_model = AutoModelForSeq2SeqLM.from_pretrained(swa_to_eng_model_info["model_name"])
+
+def detect_language(text):
+    inputs = language_tokenizer(text, padding=True, truncation=True, return_tensors="pt")
+    with torch.no_grad():
+        logits = language_model(**inputs).logits
+    preds = torch.softmax(logits, dim=-1)
+    id2lang = language_model.config.id2label
+    vals, idxs = torch.max(preds, dim=1)
+    return id2lang[idxs[0].item()]
+
+def translate_text(tokenizer, model, text):
+    inputs = tokenizer(text, return_tensors="pt", padding=True, truncation=True)
+    outputs = model.generate(**inputs)
+    translated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
+    return translated_text
 
 def generate_unique_code(length):
     while True:
@@ -80,36 +94,39 @@ def message(data):
     room = session.get("room")
     if room not in rooms:
         return
+    
+    message_text = data["data"]
 
-    # Translate the message
-    translated_message = translate_text(data["data"])
+    # Detect language
+    language = detect_language(message_text)
 
-    # Original message for sender
-    original_content = {
+    # Translate based on detected language
+    if language == "en":
+        translated_message = translate_text(eng_to_swa_tokenizer, eng_to_swa_model, message_text)
+    elif language == "sw":
+        translated_message = translate_text(swa_to_eng_tokenizer, swa_to_eng_model, message_text)
+    else:
+        translated_message = "Language not supported"
+
+    content_sender = {
         "name": session.get("name"),
-        "message": data["data"]
+        "message": message_text
     }
 
-    # Translated message for recipient
-    translated_content = {
+    content_receiver = {
         "name": session.get("name"),
         "message": translated_message
     }
-
-    # Send only the original message to the sender
-    send(original_content, room=request.sid)
-
-    # Send only the translated message to the room except the sender
-    send(translated_content, room=room, skip_sid=request.sid)
-
-    # Update the room's message history with both original and translated messages
-    rooms[room]["messages"].append(original_content)
-    rooms[room]["messages"].append(translated_content)
-
-    print(f"{session.get('name')} said: {data['data']}")
+    
+    # Send the original message to the sender and the translated message to others in the room
+    send(content_sender, to=request.sid)
+    send(content_receiver, to=room, skip_sid=request.sid)
+    
+    rooms[room]["messages"].append(content_receiver)
+    print(f"{session.get('name')} said: {message_text}")
 
 @socketio.on("connect")
-def connect():
+def connect(auth):
     room = session.get("room")
     name = session.get("name")
     if not room or not name:
@@ -119,7 +136,7 @@ def connect():
         return
 
     join_room(room)
-    send({"name": name, "message": "has entered the room"}, room=room)
+    send({"name": name, "message": "has entered the room "}, to=room)
     rooms[room]["members"] += 1
     print(f"{name} joined room {room}")
 
@@ -134,7 +151,7 @@ def disconnect():
         if rooms[room]["members"] <= 0:
             del rooms[room]
 
-    send({"name": name, "message": "has left the room"}, room=room)
+    send({"name": name, "message": "has left the room"}, to=room)
     print(f"{name} has left the room {room}")
 
 if __name__ == "__main__":

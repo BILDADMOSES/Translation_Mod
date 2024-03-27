@@ -15,14 +15,13 @@ window.languageContent = {
        roomCodePlaceholder: 'Enter your room code',
        joinBtn: 'Join a Room',
        createBtn: 'Create a Room',
-       chatTitle: 'Live Chat',
+       liveChat: 'Live Chat',
        chatInvitation: 'Chat Invitation Code:',
        leaveChat: 'Leave Chat',
        messagePlaceholder: 'Message',
        sendBtn: 'Send',
-       invite: '',
-       message: 'Write Message',
-       enter: "has entered the room"
+       writemessagePlaceholder: 'Write Message...',
+       enterRoomNotification: "has entered the room"
    },
    'french': {
        welcomeText1: 'BIENVENUE À SPEAKEASY',
@@ -37,14 +36,13 @@ window.languageContent = {
        roomCodePlaceholder: 'Entrez le code de votre chambre',
        joinBtn: 'Rejoindre une salle',
        createBtn: 'Créer une salle',
-       chatTitle: 'Chat en direct',
+       liveChat: 'Chat en direct',
        chatInvitation: 'Code d\'invitation au chat:',
        leaveChat: 'Quitter le chat',
        messagePlaceholder: 'Message',
        sendBtn: 'Envoyer',
-       invite: '',
-       message: 'Écrire un Message',
-       enter: 'est entré dans la pièce'
+       writemessagePlaceholder: 'Écrire un Message...',
+       enterRoomNotification: 'est entré dans la pièce'
    },
    'swahili': {
        welcomeText1: 'KARIBU SPEAKEASY',
@@ -59,14 +57,13 @@ window.languageContent = {
        roomCodePlaceholder: 'Ingiza msimbo wa chumba chako',
        joinBtn: 'Jiunge na chumba',
        createBtn: 'Unda Chumba',
-       chatTitle: 'Mazungumzo Moja kwa moja',
+       liveChat: 'Mazungumzo Moja kwa moja',
        chatInvitation: 'Nambari ya Mwaliko wa Mazungumzo:',
        leaveChat: 'Ondoka Chumbani',
        messagePlaceholder: 'Ujumbe',
        sendBtn: 'Tuma',
-       invite: '',
-       message: 'Andika Ujumbe',
-       enter: 'ameingia chumbani'
+       writemessagePlaceholder: 'Andika Ujumbe...',
+       enterRoomNotification: 'ameingia chumbani'
    }
 };
 
@@ -115,15 +112,19 @@ window.changeLanguage = function(language) {
    updateElementText('roomCodePlaceholder', 'roomCodePlaceholder');
    updateElementText('joinBtn', 'joinBtn');
    updateElementText('createBtn', 'createBtn');
-   updateElementText('chatTitle', 'chatTitle');
+   updateElementText('liveChat', 'liveChat');
    updateElementText('chatInvitation', 'chatInvitation');
    updateElementText('leaveChat', 'leaveChat');
    updateElementText('messagePlaceholder', 'messagePlaceholder');
+   updateElementText('writemessagePlaceholder', 'writemessagePlaceholder');
    updateElementText('sendBtn', 'sendBtn');
 
    // Update placeholders for input elements
    updateElementPlaceholder('userNamePlaceholder', 'userNamePlaceholder');
    updateElementPlaceholder('roomCodePlaceholder', 'roomCodePlaceholder');
+   updateElementPlaceholder('messagePlaceholder', 'messagePlaceholder');
+   updateElementPlaceholder('writemessagePlaceholder', 'writemessagePlaceholder');
+
 
    // Add more calls to updateElementPlaceholder for other input elements as needed
 };
